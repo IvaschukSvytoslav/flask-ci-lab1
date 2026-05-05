@@ -38,3 +38,15 @@ jobs:
 
       - name: Run flake8
         run: flake8 . --max-line-length=130 --max-complexity=10 --ignore=E302
+build:
+  needs: [test, lint]
+  runs-on: ubuntu-latest
+
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Build Docker image
+      run: docker build -t flask-ci-lab:${{ github.sha }} .
+
+    - name: Show images
+      run: docker images
