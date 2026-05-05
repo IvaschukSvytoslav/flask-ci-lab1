@@ -1,0 +1,15 @@
+name: Biweekly Check
+
+on:
+  schedule:
+    - cron: '0 9 1,15 * *'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -r requirements.txt
+      - run: pytest
